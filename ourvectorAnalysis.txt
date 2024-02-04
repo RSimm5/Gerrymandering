@@ -1,0 +1,17 @@
+*********************************************************
+*********************************************************
+ourvector<10state_info> stats:
+ # of vectors created:   1
+ # of elements inserted: 50
+ # of elements accessed: 2184
+*********************************************************
+
+Number of vectors created is only one because I initialized a vector of structs in the main() function, line 292. Every time after that, the vector was only passed by reference.
+
+Number of elements created refers to the amount of states created when loading in data, on line 127 in the load() function. This is dependent on the amount of lines loaded in the districts file.
+
+As for times information from the vector is accessed, the load() function calls load_voters() for each line in the eligible voters file on line 140. load_voters() uses the search function on line 107. The search function accesses data in the states vector multiple times, until the data it is searching for is found. load_voters() also accesses the vector at line 109 to set the struct element's eligible voters data.
+
+the function stats() calls the calc_wasted_votes() function at line 175. calc_wasted_votes() accesses the vector twice for every district in the selected state on line 153. First to find total democrat votes, second to find total republican votes. The function plot() also accesses the vector twice for every district in the selected state on line 200. First to find total democrats, second to find total republican votes.
+
+The main_screen() function accesses the vector on line 231 to print out the name of the selected state. run_command() accesses the vector to pass into the stats() and plot() functions on lines 284 and 287, as those required struct state_info information.
